@@ -1,5 +1,6 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
+
 using namespace sf;
 
 const float SCALE = 30.f;
@@ -8,12 +9,9 @@ const float DEG = 57.29577f;
 b2Vec2 Gravity(0.f, 9.8f);
 b2World World(Gravity);
 
-int player1 = 1;
-int player2 = 2;
-int ball = 3;
-int* PLAYER1 = &player1;
-int* PLAYER2 = &player2;
-int* BALL = &ball;
+uintptr_t PLAYER1 = 1;
+uintptr_t PLAYER2 = 2;
+uintptr_t BALL = 3;
 
 void setWall(int x, int y, int w, int h)
 {
@@ -71,8 +69,9 @@ int main()
         pBody[i]->CreateFixture(&circle, 5);
         pBody[i]->SetFixedRotation(true);
     }
-    //pBody[0]->SetUserData(PLAYER1);
-    //pBody[1]->SetUserData(PLAYER2);
+    
+    pBody[0]->GetUserData().pointer = PLAYER1;
+    pBody[1]->GetUserData().pointer = PLAYER2;
 
     /// ball /////////////
     bdef.position.Set(5, 1);
@@ -84,7 +83,8 @@ int main()
     fdef.restitution = 0.95;
     fdef.density = 0.2;
     b->CreateFixture(&fdef);
-    //b->SetUserData(BALL);
+    b->GetUserData().pointer = BALL;
+    
     /////////////////////////
 
     bool onGround = 0;
@@ -142,7 +142,7 @@ int main()
             b2Vec2 pos = it->GetPosition();
             float angle = it->GetAngle();
 
-            if (it->GetUserData().pointer == player1)
+            if (it->GetUserData().pointer == PLAYER1)
             {
                 sPlayer.setPosition(pos.x * SCALE, pos.y * SCALE);
                 sPlayer.setRotation(angle * DEG);
@@ -150,7 +150,7 @@ int main()
                 window.draw(sPlayer);
             }
 
-            if (it->GetUserData().pointer == player2)
+            if (it->GetUserData().pointer == PLAYER2)
             {
                 sPlayer.setPosition(pos.x * SCALE, pos.y * SCALE);
                 sPlayer.setRotation(angle * DEG);
@@ -158,7 +158,7 @@ int main()
                 window.draw(sPlayer);
             }
 
-            if (it->GetUserData().pointer == ball)
+            if (it->GetUserData().pointer == BALL)
             {
                 sBall.setPosition(pos.x * SCALE, pos.y * SCALE);
                 sBall.setRotation(angle * DEG);

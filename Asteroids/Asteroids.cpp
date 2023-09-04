@@ -212,7 +212,7 @@ int main()
 
     std::list<Entity*> entities;
 
-    for (int i = 0;i < 15;i++)
+    for (int i = 0;i < 5;i++)
     {
         asteroid* a = new asteroid();
         a->settings(sRock, rand() % W, rand() % H, rand() % 360, 25);
