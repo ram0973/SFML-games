@@ -14,13 +14,22 @@ https://www.youtube.com/@Kofybrek
 
 Ставим Visual Studio 2022, vcpkg
 
-В vcpkg ставим sfml, box2d, включаем интеграцию с Visual Studio.
+В vcpkg включаем интеграцию с Visual Studio.
 
 Инструкция здесь:
 
 https://vcpkg.io/en/getting-started
 
-В систему ставим OpenAL дял звуков и музыки.
+Устанавливаем зависимости в vcpkg:
+
+Cтавим sfml, box2d.
+
+```bash
+.\vcpkg\vcpkg install sfml:x64-windows
+.\vcpkg\vcpkg install box2d:x64-windows
+```
+
+В систему ставим OpenAL для звуков и музыки.
 
 https://www.openal.org/
 
